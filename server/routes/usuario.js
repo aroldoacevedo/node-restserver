@@ -6,10 +6,6 @@ const Usuario = require('../models/usuario');
 
 const app = express();
 
-app.get('/', function(req, res) {
-    res.json('prueba!!');
-});
-
 app.get('/usuario', function(req, res) {
     let desde = req.query.desde || 0;
     desde = Number(desde);
