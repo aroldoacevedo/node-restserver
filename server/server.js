@@ -9,10 +9,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
-    res.json('Obtener usuario');
-});
-
 app.get('/usuario', function(req, res) {
     res.json('Obtener usuario');
 });
