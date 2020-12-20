@@ -49,7 +49,7 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], (req, res) => {
     usuario.save((err, usuarioDB) => {
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });
@@ -76,7 +76,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });
@@ -93,19 +93,21 @@ app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
 app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
 
     let id = req.params.id;
-    //Usuario.findByIdAndRemove(id, (err, usuarioBrrado) => {
+
     let cambiaEstado = {
         estado: false
     };
-    Usuario.findByIdAndUpdate(id, cambiaEstado, { new: true }, (err, usuarioBrrado) => {
+
+    //Usuario.findByIdAndRemove(id, (err, usuarioBrrado) => {
+    Usuario.findByIdAndUpdate(id, cambiaEstado, { new: true }, (err, usuarioBorrado) => {
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });
         }
 
-        if (!usuarioBrrado) {
+        if (!usuarioBorrado) {
             return res.status(400).json({
                 ok: true,
                 err: {
@@ -116,7 +118,7 @@ app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
 
         res.json({
             ok: true,
-            usuario: usuarioBrrado
+            usuario: usuarioBorrado
         });
     });
 
