@@ -18,7 +18,7 @@ app.get('/productos', verificaToken, (req, res) => {
         .skip(desde)
         .limit(limite)
         .sort('nombre')
-        .populate('usuario', 'nombre email')
+        .populate('usuario', 'nombre email img')
         .populate('categoria', 'descripcion')
         .exec((err, productos) => {
             if (err) {
@@ -39,7 +39,7 @@ app.get('/productos/:id', verificaToken, (req, res) => {
     let id = req.params.id;
 
     Producto.findById(id)
-        .populate('usuario', 'nombre email')
+        .populate('usuario', 'nombre email img')
         .populate('categoria', 'descripcion').populate('usuario')
         .exec((err, productoDB) => {
 
